@@ -25,4 +25,8 @@ public class UserController {
         return userService.register(user);
     }
 
+    @RequestMapping("update")
+    public R update(@RequestBody User user) {
+        return userService.changeUserInfo(user);
+    }
 }

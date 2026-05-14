@@ -5,6 +5,7 @@ import com.quizai.domain.R;
 import com.quizai.domain.WrongQuestion;
 
 public interface WrongQuestionService extends IService<WrongQuestion> {
-    // 只写方法签名，不写实现
     R selectUserWrongQuestion(Integer userId, String subject);
+    boolean removeWrongQuestion(WrongQuestion wrongQuestion);
+    R getRandomWrongQuestions(Integer userId, String subject, Integer count);
 }

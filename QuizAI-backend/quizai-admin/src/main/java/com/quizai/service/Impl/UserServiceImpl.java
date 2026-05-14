@@ -27,13 +27,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", user.getUsername());
         User u = userMapper.selectOne(queryWrapper);
-        if (u == null) { // 用户名不存在
+        if (u == null) {
             return R.error("用户名不存在");
         }
 
-        // 2. 校验用户名
-        if (!u.getUsername().equals(user.getUsername())) {
-            return R.error("用户名错误");
+        // 检查账号是否被禁用（status=0 表示禁用）
+        if (u.getStatus() != null && u.getStatus() == 0) {
+            return R.error("账号已被禁用，请联系管理员");
         }
 
         // 对用户传递的密码进行加密
@@ -69,7 +69,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public R changeUserInfo(User user) {
-        return null;
+        if (user.getId() == null) {
+            return R.error("用户ID不能为空");
+        }
+        boolean flag = this.updateById(user);
+        if (flag) {
+            // 返回更新后的用户信息
+            User updated = userMapper.selectById(user.getId());
+            if (updated != null) {
+                updated.setPassword(null);
+            }
+            return R.success("更新成功", updated);
+        }
+        return R.error("更新失败");
     }
 
 

@@ -10,6 +10,10 @@
         q.id,
         q.`subject`,
         q.content,
+        q.option_a,
+        q.option_b,
+        q.option_c,
+        q.option_d,
         q.correct_answer,
         q.analysis
         from wrong_question w

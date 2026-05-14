@@ -16,7 +16,7 @@ spring:
       base-url: ${dashscope.base-url}
       chat:
         options:
-          model: qvq-max-2025-03-25
+          model: deepseek-v4-flash
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml

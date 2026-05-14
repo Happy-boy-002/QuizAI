@@ -25,4 +25,19 @@ public class WrongQuestionController {
     public R selectUserWrongQuestion(@RequestParam(defaultValue = "全部") String subject) {
         return wrongQuestionService.selectUserWrongQuestion(SecurityUtils.getCurrentUserId().intValue(), subject);
     }
+
+    @PostMapping("remove")
+    public R removeWrongQuestion(@RequestBody WrongQuestion wrongQuestion) {
+        wrongQuestion.setUserId(SecurityUtils.getCurrentUserId().intValue());
+        boolean flag = wrongQuestionService.removeWrongQuestion(wrongQuestion);
+        return flag ? R.success("移除成功") : R.error("移除失败");
+    }
+
+    @GetMapping("random")
+    public R getRandomWrongQuestions(
+            @RequestParam(defaultValue = "全部") String subject,
+            @RequestParam(defaultValue = "10") Integer count) {
+        return wrongQuestionService.getRandomWrongQuestions(
+                SecurityUtils.getCurrentUserId().intValue(), subject, count);
+    }
 }
