@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quizai.history.mapper.HistoryPracticeRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.quizai.history.domain.PracticeRecordEntity">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="subject" property="subject" jdbcType="VARCHAR"/>
+        <result column="total_count" property="totalCount" jdbcType="BIGINT"/>
+        <result column="correct_count" property="correctCount" jdbcType="BIGINT"/>
+        <result column="accuracy_rate" property="accuracyRate" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+</mapper>

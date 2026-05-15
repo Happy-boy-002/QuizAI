@@ -1,0 +1,215 @@
+page {
+  background-color: #F7F9FC;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, sans-serif;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.top-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400rpx;
+  background: linear-gradient(180deg, #E0E7FF 0%, #F7F9FC 100%);
+  z-index: -1;
+}
+
+.custom-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100rpx 40rpx 20rpx 40rpx;
+  flex-shrink: 0;
+}
+
+.nav-back {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -20rpx;
+}
+
+.back-icon {
+  font-size: 56rpx;
+  color: #374151;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.nav-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #111827;
+}
+
+.nav-placeholder {
+  width: 80rpx;
+}
+
+.main-scroll {
+  flex: 1;
+  height: 0;
+  width: 100%;
+}
+
+.list-container {
+  padding: 20rpx 40rpx 40rpx;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 160rpx;
+}
+
+.empty-icon {
+  font-size: 96rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #6B7280;
+  font-weight: 500;
+  margin-bottom: 12rpx;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: #9CA3AF;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  padding-top: 200rpx;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #9CA3AF;
+}
+
+.record-card {
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
+  transition: opacity 0.2s;
+}
+
+.record-card:active {
+  opacity: 0.7;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.card-subject {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #111827;
+}
+
+.card-date {
+  font-size: 24rpx;
+  color: #9CA3AF;
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-stats {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-num {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #374151;
+}
+
+.stat-num.correct {
+  color: #10B981;
+}
+
+.stat-num.wrong {
+  color: #EF4444;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: #9CA3AF;
+  margin-top: 4rpx;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 48rpx;
+  background-color: #F3F4F6;
+}
+
+.accuracy-badge {
+  min-width: 100rpx;
+  height: 56rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20rpx;
+}
+
+.accuracy-badge.high {
+  background-color: #D1FAE5;
+}
+
+.accuracy-badge.mid {
+  background-color: #FEF3C7;
+}
+
+.accuracy-badge.low {
+  background-color: #FEE2E2;
+}
+
+.accuracy-text {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.accuracy-badge.high .accuracy-text {
+  color: #065F46;
+}
+
+.accuracy-badge.mid .accuracy-text {
+  color: #92400E;
+}
+
+.accuracy-badge.low .accuracy-text {
+  color: #991B1B;
+}

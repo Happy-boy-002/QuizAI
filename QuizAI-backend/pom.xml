@@ -27,6 +27,7 @@
         <module>quizai-common</module>
         <module>quizai-admin</module>
         <module>quizai-agent</module>
+        <module>quizai-historydetails</module>
     </modules>
 
     <dependencyManagement>

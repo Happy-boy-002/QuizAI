@@ -46,6 +46,12 @@ Page({
     })
   },
 
+  goToHistory() {
+    wx.navigateTo({
+      url: '/pages/history/history'
+    })
+  },
+
   goToUserInfo() {
     wx.navigateTo({
       url: '/pages/userinfo/userinfo'

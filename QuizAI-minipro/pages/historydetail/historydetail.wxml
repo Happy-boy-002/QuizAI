@@ -1,0 +1,117 @@
+<view class="page-container">
+  <view class="top-bg"></view>
+
+  <view class="custom-nav">
+    <view class="nav-back" bindtap="goBack">
+      <text class="back-icon">‹</text>
+    </view>
+    <view class="nav-title">练习详情</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <scroll-view scroll-y class="main-scroll" show-scrollbar="false" enhanced="true">
+    <view class="scroll-inner">
+      <view class="loading-state" wx:if="{{loading}}">
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <block wx:else>
+        <view class="summary-card">
+          <view class="summary-header">
+            <text class="summary-subject">{{detail.subject === '全部' ? '综合练习' : detail.subject}}</text>
+            <view class="summary-accuracy {{detail.accuracyRate >= 80 ? 'high' : (detail.accuracyRate >= 60 ? 'mid' : 'low')}}">
+              <text class="summary-accuracy-text">{{detail.accuracyRate}}%</text>
+            </view>
+          </view>
+          <text class="summary-date">{{formatTime(detail.createTime)}}</text>
+          <view class="summary-stats">
+            <view class="summary-stat-item">
+              <text class="summary-stat-num">{{detail.totalCount}}</text>
+              <text class="summary-stat-label">总题数</text>
+            </view>
+            <view class="summary-stat-item">
+              <text class="summary-stat-num correct">{{detail.correctCount}}</text>
+              <text class="summary-stat-label">答对</text>
+            </view>
+            <view class="summary-stat-item">
+              <text class="summary-stat-num wrong">{{detail.totalCount - detail.correctCount}}</text>
+              <text class="summary-stat-label">答错</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="section-title">
+          <text class="section-title-text">题目详情</text>
+          <text class="section-title-count">共 {{questions.length}} 题</text>
+        </view>
+
+        <view class="question-card" wx:for="{{questions}}" wx:key="questionId" wx:for-index="qIndex">
+          <view class="q-header">
+            <view class="q-badge {{item.isCorrect ? 'badge-correct' : 'badge-wrong'}}">
+              <text>{{item.isCorrect ? '✓ 正确' : '✗ 错误'}}</text>
+            </view>
+            <text class="q-number">第 {{qIndex + 1}} 题</text>
+          </view>
+
+          <view class="q-content">{{item.questionContent}}</view>
+
+          <view class="options-list">
+            <view class="option-card
+              {{isUserSelected(item, 'A') && item.isCorrect ? 'is-correct' : ''}}
+              {{isUserSelected(item, 'A') && !item.isCorrect ? 'is-wrong' : ''}}
+              {{!isUserSelected(item, 'A') && isCorrectOption(item, 'A') ? 'is-correct is-disabled' : ''}}
+              {{!isUserSelected(item, 'A') && !isCorrectOption(item, 'A') ? '' : ''}}">
+              <view class="opt-prefix">
+                <view class="opt-letter">{{isUserSelected(item, 'A') && item.isCorrect ? '✓' : (isUserSelected(item, 'A') && !item.isCorrect ? '✗' : 'A')}}</view>
+              </view>
+              <view class="opt-body">
+                <text class="opt-text">{{item.optionA}}</text>
+              </view>
+            </view>
+
+            <view class="option-card
+              {{isUserSelected(item, 'B') && item.isCorrect ? 'is-correct' : ''}}
+              {{isUserSelected(item, 'B') && !item.isCorrect ? 'is-wrong' : ''}}
+              {{!isUserSelected(item, 'B') && isCorrectOption(item, 'B') ? 'is-correct is-disabled' : ''}}">
+              <view class="opt-prefix">
+                <view class="opt-letter">{{isUserSelected(item, 'B') && item.isCorrect ? '✓' : (isUserSelected(item, 'B') && !item.isCorrect ? '✗' : 'B')}}</view>
+              </view>
+              <view class="opt-body">
+                <text class="opt-text">{{item.optionB}}</text>
+              </view>
+            </view>
+
+            <view class="option-card
+              {{isUserSelected(item, 'C') && item.isCorrect ? 'is-correct' : ''}}
+              {{isUserSelected(item, 'C') && !item.isCorrect ? 'is-wrong' : ''}}
+              {{!isUserSelected(item, 'C') && isCorrectOption(item, 'C') ? 'is-correct is-disabled' : ''}}">
+              <view class="opt-prefix">
+                <view class="opt-letter">{{isUserSelected(item, 'C') && item.isCorrect ? '✓' : (isUserSelected(item, 'C') && !item.isCorrect ? '✗' : 'C')}}</view>
+              </view>
+              <view class="opt-body">
+                <text class="opt-text">{{item.optionC}}</text>
+              </view>
+            </view>
+
+            <view class="option-card
+              {{isUserSelected(item, 'D') && item.isCorrect ? 'is-correct' : ''}}
+              {{isUserSelected(item, 'D') && !item.isCorrect ? 'is-wrong' : ''}}
+              {{!isUserSelected(item, 'D') && isCorrectOption(item, 'D') ? 'is-correct is-disabled' : ''}}">
+              <view class="opt-prefix">
+                <view class="opt-letter">{{isUserSelected(item, 'D') && item.isCorrect ? '✓' : (isUserSelected(item, 'D') && !item.isCorrect ? '✗' : 'D')}}</view>
+              </view>
+              <view class="opt-body">
+                <text class="opt-text">{{item.optionD}}</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="answer-hint" wx:if="{{!item.isCorrect}}">
+            <text class="hint-label">正确答案：</text>
+            <text class="hint-value">{{item.correctAnswer}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

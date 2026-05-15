@@ -6,7 +6,10 @@
     "pages/practice/practice",
     "pages/wrong/wrong",
     "pages/profile/profile",
-    "pages/userinfo/userinfo"
+    "pages/userinfo/userinfo",
+    "pages/history/history",
+    "pages/historydetail/historydetail",
+    "pages/practice-enhanced/practice-enhanced"
   ],
   "tabBar": {
     "color": "#6B7280",

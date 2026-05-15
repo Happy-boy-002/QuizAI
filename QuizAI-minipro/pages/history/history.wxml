@@ -1,0 +1,53 @@
+<view class="page-container">
+  <view class="top-bg"></view>
+
+  <view class="custom-nav">
+    <view class="nav-back" bindtap="goBack">
+      <text class="back-icon">‹</text>
+    </view>
+    <view class="nav-title">练习记录</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <scroll-view scroll-y class="main-scroll" show-scrollbar="false" enhanced="true" refresher-enabled="{{true}}" refresher-triggered="{{refreshing}}" bindrefresherrefresh="onRefresh">
+    <view class="list-container">
+      <view class="empty-state" wx:if="{{list.length === 0 && !loading}}">
+        <text class="empty-icon">📝</text>
+        <text class="empty-text">暂无练习记录</text>
+        <text class="empty-hint">去「刷题练习」开始你的第一次练习吧</text>
+      </view>
+
+      <view class="loading-state" wx:if="{{loading && list.length === 0}}">
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <view class="record-card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail">
+        <view class="card-header">
+          <text class="card-subject">{{item.subject === '全部' ? '综合练习' : item.subject}}</text>
+          <text class="card-date">{{formatTime(item.createTime)}}</text>
+        </view>
+        <view class="card-body">
+          <view class="card-stats">
+            <view class="stat-item">
+              <text class="stat-num">{{item.totalCount}}</text>
+              <text class="stat-label">总题数</text>
+            </view>
+            <view class="stat-divider"></view>
+            <view class="stat-item">
+              <text class="stat-num correct">{{item.correctCount}}</text>
+              <text class="stat-label">答对</text>
+            </view>
+            <view class="stat-divider"></view>
+            <view class="stat-item">
+              <text class="stat-num wrong">{{item.totalCount - item.correctCount}}</text>
+              <text class="stat-label">答错</text>
+            </view>
+          </view>
+          <view class="accuracy-badge {{item.accuracyRate >= 80 ? 'high' : (item.accuracyRate >= 60 ? 'mid' : 'low')}}">
+            <text class="accuracy-text">{{item.accuracyRate}}%</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

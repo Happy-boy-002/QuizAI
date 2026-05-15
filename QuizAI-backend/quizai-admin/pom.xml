@@ -73,6 +73,12 @@
             <artifactId>quizai-agent</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.quizai</groupId>
+            <artifactId>quizai-historydetails</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>

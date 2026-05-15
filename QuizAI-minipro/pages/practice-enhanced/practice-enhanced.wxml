@@ -1,0 +1,125 @@
+<view class="page-container">
+  <view class="top-bg"></view>
+  <view class="custom-nav">
+    <view class="nav-back" bindtap="goBack">
+      <text class="nav-icon">←</text>
+    </view>
+    <view class="nav-title">刷题练习</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <block wx:if="{{loading}}">
+    <view class="empty-state">
+      <view class="loading-icon pulse-animation">📚</view>
+      <text class="loading-text">正在从题库中为您抽取题目...</text>
+    </view>
+  </block>
+  
+  <block wx:elif="{{questions.length === 0}}">
+    <view class="empty-state">
+      <view class="loading-icon">🤷</view>
+      <text class="loading-text">题库里还没有这个科目的题目哦</text>
+      <button class="back-btn" bindtap="goBack">返回重选</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="progress-indicator">
+      <view 
+        wx:for="{{questions}}" 
+        wx:key="id" 
+        class="progress-dot {{index < currentIndex ? 'completed' : (index === currentIndex ? 'active' : '')}}"
+      ></view>
+    </view>
+
+    <scroll-view scroll-y class="scroll-area" show-scrollbar="false" enhanced="true">
+      <view class="scroll-inner">
+        <view class="question-card">
+        <view class="q-header">
+          <view class="q-badge">单选题</view>
+          <view class="q-counter">
+            <text class="current">{{currentIndex + 1}}</text>
+            <text class="total">/{{questions.length}}</text>
+          </view>
+        </view>
+        <view class="q-content-box">
+          <text class="q-content">{{currentQuestion.content}}</text>
+        </view>
+      </view>
+
+      <view class="options-list">
+        <view 
+          wx:for="{{['A', 'B', 'C', 'D']}}" 
+          wx:key="*this"
+          class="option-card {{isAnswered ? (currentQuestion.correctAnswer === item ? 'is-correct' : (selectedOption === item ? 'is-wrong' : 'is-disabled')) : (selectedOption === item ? 'is-selected' : '')}}"
+          bindtap="onSelectOption"
+          data-option="{{item}}"
+        >
+          <view class="opt-prefix">
+            <view class="opt-letter" wx:if="{{!isAnswered || (currentQuestion.correctAnswer !== item && selectedOption !== item)}}">{{item}}</view>
+            <view class="opt-icon success-icon" wx:elif="{{isAnswered && currentQuestion.correctAnswer === item}}">✓</view>
+            <view class="opt-icon error-icon" wx:elif="{{isAnswered && selectedOption === item}}">✕</view>
+          </view>
+          
+          <view class="opt-body">
+            <text class="opt-text">{{currentQuestion['option' + item]}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="analysis-card" wx:if="{{isAnswered}}">
+        <view class="analysis-header">
+          <view class="analysis-title">
+            <view class="title-icon">💡</view>
+            <text>答案解析</text>
+          </view>
+          
+          <view class="ai-sparkle-btn" bindtap="getAIAnalysis">
+            <text class="ai-sparkle-icon">✨</text>
+            <text class="ai-sparkle-text">AI 深度讲解</text>
+          </view>
+        </view>
+        
+        <view class="analysis-divider"></view>
+        
+        <view class="analysis-body">
+          <text class="analysis-text">{{currentQuestion.analysis || '这道题暂无详细解析哦，试试点击右上角的 AI 深度讲解吧！'}}</text>
+        </view>
+
+        <view class="ai-result-box" wx:if="{{aiLoading || aiAnalysisResult}}">
+          <view class="ai-result-header">
+            <text class="ai-icon-small">🤖</text>
+            <text class="ai-title-small">AI 老师说：</text>
+          </view>
+          <view class="ai-content">
+            <block wx:if="{{aiLoading}}">
+              <view class="loading-dots">
+                <view class="dot"></view><view class="dot"></view><view class="dot"></view>
+              </view>
+            </block>
+            <text wx:else>{{aiAnalysisResult}}</text>
+          </view>
+        </view>
+      </view>
+
+      </view>
+    </scroll-view>
+
+    <view class="bottom-action-bar">
+      <button 
+        wx:if="{{!isAnswered}}" 
+        class="action-btn submit-btn {{selectedOption ? '' : 'btn-disabled'}}" 
+        bindtap="submitAnswer"
+      >
+        确定提交
+      </button>
+      <button 
+        wx:else 
+        class="action-btn next-btn" 
+        bindtap="nextQuestion"
+      >
+        {{currentIndex < questions.length - 1 ? '继续下一题' : '完成练习，查看结果 🎉'}}
+      </button>
+    </view>
+  </block>
+</view>

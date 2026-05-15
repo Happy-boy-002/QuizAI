@@ -72,9 +72,8 @@ Page({
 
   startPractice() {
     const { selectedSubject, selectedCount } = this.data
-    console.log(selectedSubject);
     wx.navigateTo({
-      url: `/pages/practice/practice?subject=${selectedSubject}&count=${selectedCount}`
+      url: `/pages/practice-enhanced/practice-enhanced?subject=${selectedSubject}&count=${selectedCount}`
     })
   },
 
